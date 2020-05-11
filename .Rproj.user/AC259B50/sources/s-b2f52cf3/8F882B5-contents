@@ -1,0 +1,179 @@
+---
+title: 'Project 1: Exploratory Data Analysis'
+author: "SDS348"
+date: ''
+output:
+  pdf_document:
+    toc: no
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F,
+tidy=TRUE, tidy.opts=list(width.cutoff=60), R.options=list(max.print=100))
+```
+
+Kiana Banafshay (kab5236)
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+#### Introduction
+
+```{r}
+library(tidyverse)
+voterturnout <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-09/voter_turnout.csv")
+catdog <- read.csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-11/cats_vs_dogs.csv")
+
+```
+I chose two datasets for my project: one that I named as "voterturnout" and another I named as "catdog". The voterturnout dataset contains information regarding the number of votes and eligible voters for all 50 states for every 2 years from 1980-2014. The specific variables in the dataset include: X, year, icpsr_state_code, alphanumeric_state_code, state, votes, and eligible_voters. The catdog dataset gives various data about cat and dog households/owners across all 50 states. The specific variables in this dataset are: X, state, n_households, percent_pet_households, n_pet_households, percent_dog_owners, n_dog_households, avg_dogs_per_household, dog_population, percent_cat_owners, n_cat_households, avg_cats_per_household, and cat_population. Both the voterturnout and catdog datasets were acquired from https://github.com/rfordatascience/tidytuesday. 
+
+These datasets are interesting to me for a number of reasons. Given the fact that it's election year and how the Texas primaries just occured, I felt that finding a dataset about voter turnout was especially fitting. I've always been politically active and encourage people, especially young people, to vote and I was curious to see how this voter turnout compared across states. As far as the catdog dataset, I personally have a cat myself and I thought it could be interesting to see if having a pet, or whether specifically owning a cat or dog, could impact the voter turnout of the various states. Potential associations that I expect are increased number of votes across states with increased number of pet households. My thought process was maybe those who own a pet feel more inclined to vote. However, the voter turnout amongst cat and dog owners is more ambiguous to me. I also predict that more urban and populous states will have greater voter turnout than rural states. 
+
+
+#### Joining the datasets
+```{r}
+voterturnout <- voterturnout %>% select(-X, -icpsr_state_code, -alphanumeric_state_code) %>% filter(year == 2014)  
+catdog <- catdog %>% select(-X, -avg_dogs_per_household, -avg_cats_per_household)
+
+projectdata <- full_join(voterturnout, catdog, by = "state")
+```
+To join my two datasets, I did a full join with the common variable being "state". The reason I did a full join is in order to combine the results of both left and right outer joins completely. From the voterturnout dataset, I dropped 3 cases/columns: X, icpsr_state_code, and alphanumeric_state_code. In addition, I filtered the dataset to only contain data from the year 2014 (the most recent year available). From the catdog dataset, I dropped 3 cases/columns: X, avg_dogs_per_household, and avg_cats_per_household. I dropped these columns in the datasets because I thought that they weren't pertinent to the relationships I was trying to study. However, some problems that can be associated with dropping cases include the fact that I might actually be losing valuable data that could have held interesting correlations/findings.
+
+#### Summary statistics: six core dplyr functions
+
+```{r}
+projectdata %>% arrange(desc(votes))
+projectdata %>% filter(state == "California") %>% select(votes, percent_cat_owners) 
+projectdata %>% filter(state == "California") %>% select(votes, percent_dog_owners)
+projectdata %>% filter(state == "Wyoming") %>% select(votes, percent_cat_owners) 
+projectdata %>% filter(state == "Wyoming") %>% select(votes, percent_dog_owners)
+pvprojectdata <-projectdata %>% mutate(percent_voted = (votes/eligible_voters)*100)
+dsprojectdata <- projectdata %>% mutate(dogstate = case_when(percent_dog_owners > 40 ~ "high", percent_dog_owners< 40 ~ "low"))
+dscsprojectdata <- dsprojectdata %>% mutate(catstate= case_when(percent_cat_owners >40 ~ "high", percent_cat_owners<40 ~ "low"))
+dscsprojectdata %>% group_by(catstate) %>% na.omit %>% summarize(mean(votes)) 
+dscsprojectdata %>% group_by(dogstate) %>% na.omit %>% summarize(mean(votes)) 
+
+```
+
+#### Summary statistics: additional dplyr functions
+```{R}
+# for each numeric variable
+projectdata %>% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), ndistinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligiblevoters = mean(eligible_voters, na.rm = T), n(), sd_eligiblevoters = sd(eligible_voters, na.rm = T), ndistinct_eligiblevoters= n_distinct(eligible_voters), min_eligiblevoters= min(eligible_voters, na.rm = T), max_eligiblevoters= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), ndistinct_nhouseholds= n_distinct(n_households), min_nhouseholds= min(n_households, na.rm = T), max_nhouseholds= max(n_households, na.rm = T), mean_percentpethouseholds = mean(percent_pet_households, na.rm = T), n(), sd_percentpethouseholds = sd(percent_pet_households, na.rm = T), ndistinct_percentpethouseholds= n_distinct(percent_pet_households), min_percentpethouseholds= min(percent_pet_households, na.rm = T), max_percentpethouseholds= max(percent_pet_households, na.rm = T), mean_percentdogowners = mean(percent_dog_owners, na.rm = T), n(), sd_percentdogowners = sd(percent_dog_owners, na.rm = T), ndistinct_percentdogowners= n_distinct(percent_dog_owners), min_percentdogowners= min(percent_dog_owners, na.rm = T), max_percentdogowners= max(percent_dog_owners, na.rm = T), mean_percentcatowners = mean(percent_cat_owners, na.rm = T), n(), sd_percentcatowners = sd(percent_cat_owners, na.rm = T), ndistinct_percentcatowners= n_distinct(percent_cat_owners), min_percentcatowners= min(percent_cat_owners, na.rm = T), max_percentcatowners= max(percent_cat_owners, na.rm = T)) %>% pivot_longer(-2) %>% separate(name, into= c("something", "variable")) %>% pivot_wider(names_from = "something") %>% na.omit
+```
+To help clearly display the results of the summary statistics, I used pivot_wider/pivot_longer to make an easier to read table. I first piped the whole summary statistic output into pivot_longer in order to make all but the second column (which is n()) of the table longer. Then I used the separate function to separate the names from the "name" column into two new columns called "something" and "variable". By default, the separate function separates based off of "_". Then I finally used pivot_wider to make the names from "something" into a wider table. 
+
+
+####Summary statistics continued
+```{R}
+
+#after grouping by one categorical variable
+dscsprojectdata %>% group_by(dogstate) %>% na.omit %>% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), n_distinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligible_voters = mean(eligible_voters, na.rm = T), n(), sd_eligible_voters = sd(eligible_voters, na.rm = T), n_distinct_ev= n_distinct(eligible_voters), min_ev= min(eligible_voters, na.rm = T), max_ev= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), n_distinct_nh= n_distinct(n_households), min_nh= min(n_households, na.rm = T), max_nh= max(n_households, na.rm = T), mean_percentpeth = mean(percent_pet_households, na.rm = T), n(), sd_pph = sd(percent_pet_households, na.rm = T), n_distinct_pph= n_distinct(percent_pet_households), min_pph= min(percent_pet_households, na.rm = T), max_pph= max(percent_pet_households, na.rm = T), mean_percentdog = mean(percent_dog_owners, na.rm = T), n(), sd_percentdog = sd(percent_dog_owners, na.rm = T), n_distinct_percentdog= n_distinct(percent_dog_owners), min_percentdog= min(percent_dog_owners, na.rm = T), max_percentdog= max(percent_dog_owners, na.rm = T), mean_percentcat = mean(percent_cat_owners, na.rm = T), n(), sd_percentcat = sd(percent_cat_owners, na.rm = T), n_distinct_percentcat= n_distinct(percent_cat_owners), min_percentcat= min(percent_cat_owners, na.rm = T), max_percentcat= max(percent_cat_owners, na.rm = T)) 
+
+
+# grouping by two categorical variables
+dscsprojectdata %>% group_by(dogstate, catstate) %>% na.omit %>% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), n_distinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligible_voters = mean(eligible_voters, na.rm = T), n(), sd_eligible_voters = sd(eligible_voters, na.rm = T), n_distinct_ev= n_distinct(eligible_voters), min_ev= min(eligible_voters, na.rm = T), max_ev= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), n_distinct_nh= n_distinct(n_households), min_nh= min(n_households, na.rm = T), max_nh= max(n_households, na.rm = T), mean_percentpeth = mean(percent_pet_households, na.rm = T), n(), sd_pph = sd(percent_pet_households, na.rm = T), n_distinct_pph= n_distinct(percent_pet_households), min_pph= min(percent_pet_households, na.rm = T), max_pph= max(percent_pet_households, na.rm = T), mean_percentdog = mean(percent_dog_owners, na.rm = T), n(), sd_percentdog = sd(percent_dog_owners, na.rm = T), n_distinct_percentdog= n_distinct(percent_dog_owners), min_percentdog= min(percent_dog_owners, na.rm = T), max_percentdog= max(percent_dog_owners, na.rm = T), mean_percentcat = mean(percent_cat_owners, na.rm = T), n(), sd_percentcat = sd(percent_cat_owners, na.rm = T), n_distinct_percentcat= n_distinct(percent_cat_owners), min_percentcat= min(percent_cat_owners, na.rm = T), max_percentcat= max(percent_cat_owners, na.rm = T)) 
+
+
+```
+
+#### Summary statistics: correlations and correlation matrix
+```{R}
+projectdata %>% na.omit %>% summarize(cor(votes, n_dog_households))
+projectdata %>% na.omit %>% summarize(cor(votes, n_cat_households))
+projectdata %>% na.omit %>% summarize(cor(votes, n_pet_households))
+numericprojectdata <- projectdata %>% na.omit %>% select_if(is.numeric)
+cor(numericprojectdata)
+```
+**Discussion of all results**: I initially used the dplyr functions to simply explore my dataset and see what I could find. After descending the number of votes, I see that California had the most number of votes while Wyoming had the least number of votes. I filtered by both states to see the percentage of cat and dog owners for both of those states. California had 28.3% cat owners and 32.8% dog owners. Wyoming had 33.9% cat owners and 38.8% dog owners. Using mutate, I created a new column called "percent_voted" to represent the percent of eligible voters that actually voted. I also used mutate to create 2 new categorical variables (dogstate and catstate) and then grouped by each variable to determine their mean votes. Both high dogstate and catstate are states in which the percent dog or cat owners are greater than 40%. I then used the dplyr functions to more specifically find the summary statistics (mean, sd, n_distinct, min, max) first of my numeric variables, then after grouping by one categorical variable (dogstate), and then after grouping by two categorical vaariables (dogstate and catstate). All the results are listed in the table for each numeric variable but to summarize, I will only list a few. For instance, mean votes was 3276309.265306. For high dogstate it was 1258256 while for low dogstate it was 1862845. After grouping by dogstate and catstate, mean votes was 1258256.4	(high dogstate/low catstate), 787074.3	(low dogstate/high catstate), and 1978106.4	(low dogstate/low catstate). For number of pet households, the min was 221.0. After grouping by dogstate, the min was 333 (high dogstate) and 221 (low dogstate). After grouping by catstate and dogstate, the min was 333 (high dogstate/low catstate), 265 (low dogstate/high catstate), and 221 (low dogstate/low catstate).
+
+As for correlations, the correlation between votes and number of dog households is 0.9652006. The correlation between votes and number of cat households is 0.9666683. Finally the correlation between votes and number of pet households is 0.9729474. All these correlations are close to one and therefore suggest a stronger correlation between those respective numeric variables. I also created a correlation matrix that essentially illustrates the correlations between all numeric variables in my project dataset. 
+
+#### Correlation heatmap
+```{r}
+
+#heat map 
+df<-projectdata%>%na.omit%>%select_if(is.numeric)
+cor(df)
+
+tidycor<-cor(df)%>%as.data.frame%>%
+rownames_to_column%>%
+pivot_longer(-1,names_to="name",values_to="correlation")
+head(tidycor)
+
+tidycor%>%ggplot(aes(rowname,name,fill=correlation))+
+geom_tile()+
+scale_fill_gradient2(low="red",mid="white",high="blue")+ 
+geom_text(aes(label=round(correlation,2)),color = "black", size = 2.5)+ 
+theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+```
+The correlation heatmap shows a lot of interesting correlations between each of my numeric variables. Those cells highlighted in dark blue illustrate a higher correlation amongst those numeric variables, while those in pink represent numeric variables that do not really have any correlation. From my heatmap, I can see that votes is highly correlated to cat_population, dog_population, eligible_voters, n_cat_households, n_dog_households, n_households, and n_pet_households. However, it isnt as correlated to percent_cat_owners, percent_dog_owners, or percent_pet_households. On the other hand, percent_pet_households seems to be correlated but not as strongly (0.82) to percent_cat_owners and percent_dog_owners (0.79). One of the lowest correlations seems to be -0.05 which is between percent_pet_households and dog_population. 
+
+#### Additional graphs
+ 
+```{r}
+projectdata %>% na.omit %>% filter(state != "United States") %>% ggplot(aes(reorder(state,votes),votes))+
+geom_bar(size=3,aes(fill=log10(n_pet_households)), stat = "identity")+
+scale_fill_gradient(low="yellow", high="red") +
+theme(axis.text.x = element_text(angle = 90, size =6)) +
+ggtitle("Number of Pet Households and Votes per State") + xlab("States") + ylab("Votes") 
+```
+This graph visualizes the relationship between the number of votes and number of pet households for each state. It is ordered by state with increasing number of votes. From the graph, it can be seen that states with a greater number of votes generally have a greater number of pet households. This finding matches with what I orginally had predicted! In this case, California has the highest number of votes and has the highest number of pet households. On the other hand, Wyoming has the lowest number of votes and the lowest number of pet households. 
+
+```{r}
+projectdata %>% na.omit %>% filter(state != "United States") %>% ggplot(aes(reorder(state, votes), votes)) + geom_bar(aes(fill = n_dog_households), stat = "summary", fun.y ="mean") + theme(axis.text.x = element_text(angle = 90, size = 6)) + ggtitle("Number of Dog Households and Votes per State") + xlab("States") + ylab("Votes") + scale_y_continuous(breaks=seq(0, 8000000, 1000000))
+```
+This graph visualizes the relationship between the number of votes and number of dog households for each state. The graph is ordered by state with increasing votes. From the graph, it can be seen that states with a greater number of votes generally have a greater number of dog households. In this case, California has the highest number of votes and has the highest number of dog households. On the other hand, Wyoming has the lowest number of votes and the lowest number of dog households. Whether cat or dog households vote more was a prediction that I was more unsure of. To see if I can determine this, I made another graph of cat households and votes per state below. 
+
+```{r}
+projectdata %>% na.omit %>% filter(state != "United States") %>% ggplot(aes(reorder(state, votes), votes)) + geom_bar(aes(fill = n_cat_households), stat = "summary", fun.y ="mean") + theme(axis.text.x = element_text(angle = 90, size = 6)) + ggtitle("Number of Cat Households and Votes per State") + xlab("States") + ylab("Votes") 
+```
+This graph visualizes the relationship between the number of votes and number of cat households in each state. It also is ordered by state with increasing votes. From the graph, it can be seen that states with a greater number of votes generally also have a greater number of cat households. In this case, California has the highest number of votes and has the greatest number of cat households. On the other hand, Wyoming has the lowest number of votes and the lowest number of cat households. To compare with the previous graph, California had the highest number of votes and they had about 4000 dog households but 3000 cat households. Wyoming had the lowest number of votes but they had less than 1000 cat and dog households. I randomly picked another state to see if there was a clearer association. When looking at Georgia, they had about 2000 dog households and closer to a 1000 cat households. However, a clear association could not be deduced from the graph alone with respect to whether or not cat or dog households vote more. 
+
+
+#### **K-means clustering**
+
+
+####Step 1: process data
+```{r}  
+library(cluster)
+clust_dat<-projectdata%>%dplyr::select(n_pet_households, n_cat_households, n_dog_households, votes) %>% na.omit
+
+```
+In this first step, I chose four numeric variables to perform clustering analysis on: n_pet_households, n_cat_households, n_dog_households, and votes. I scaled the numeric variables in step 3 during the k-means analysis. 
+
+#### Step 2: choosing number of clusters
+```{r}
+sil_width<-vector() 
+for(i in 2:10){
+kms <- kmeans(clust_dat,centers=i) 
+sil <- silhouette(kms$cluster,dist(clust_dat)) 
+sil_width[i]<-mean(sil[,3]) 
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name="k",breaks=1:10)
+```
+As can be seen from this graph, 2 clusters has the highest average silhouette width followed by 5 clusters. In general, the higher the average silhouette width the better. Therefore, I decided to do my cluster analysis with 2 clusters. 
+
+#### Step 3: k-means analysis 
+```{r}
+kmeans1 <- clust_dat %>% scale %>% kmeans(2)
+kmeans1
+kmeans1$centers
+kmeans1$cluster
+kmeansclust <- clust_dat %>% mutate(cluster=as.factor(kmeans1$cluster))
+kmeansclust
+kmeansclust %>% ggplot(aes(n_pet_households,votes,color=cluster)) + geom_point()
+
+```
+I performed a k-means cluster analysis and then used ggplot to visualize the 2 clusters. The 2 clusters created are of sizes 9 and 37. Essentially the graph shows the two variables (votes and number of pet households), but in clusters based on four variables (votes, number of pet households, number of dog households, and number of cat households). In general, I see a trend that as number of pet households increase so do the number of votes. It can also be seen that cluster 1 (red dots) generally has a higher number of pet households and a higher number of votes than cluster 2 (blue dots). The centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 1 are 1.5562925, 1.5498753, 1.5542284, and 1.5850703 respectively. On the other hand, the centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 2 are -0.3785576, -0.3769967, -0.3780556, and -0.3855576. 
+
+```

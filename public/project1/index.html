@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Kiana Banafshay" />
+    <meta name="description" content="Describe your website">
+    <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
+    <title>Project 1: Exploratory Data Analysis</title>
+    <meta name="generator" content="Hugo 0.70.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="../"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="../blog/">BLOG</a></li>
+        
+        <li><a href="../projects/">PROJECTS</a></li>
+        
+        <li><a href="resume.pdf">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="../project1/">Project 1: Exploratory Data Analysis</a></strong>
+          </h3>
+        </div>
+        <div class="blog-title">
+          <h4>
+          January 1, 0001
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+
+
+<p>Kiana Banafshay (kab5236)</p>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<div id="introduction" class="section level4">
+<h4>Introduction</h4>
+<pre class="r"><code>library(tidyverse)
+voterturnout &lt;- read.csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-09/voter_turnout.csv&quot;)
+catdog &lt;- read.csv(&quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-11/cats_vs_dogs.csv&quot;)</code></pre>
+<p>I chose two datasets for my project: one that I named as “voterturnout” and another I named as “catdog”. The voterturnout dataset contains information regarding the number of votes and eligible voters for all 50 states for every 2 years from 1980-2014. The specific variables in the dataset include: X, year, icpsr_state_code, alphanumeric_state_code, state, votes, and eligible_voters. The catdog dataset gives various data about cat and dog households/owners across all 50 states. The specific variables in this dataset are: X, state, n_households, percent_pet_households, n_pet_households, percent_dog_owners, n_dog_households, avg_dogs_per_household, dog_population, percent_cat_owners, n_cat_households, avg_cats_per_household, and cat_population. Both the voterturnout and catdog datasets were acquired from <a href="https://github.com/rfordatascience/tidytuesday" class="uri">https://github.com/rfordatascience/tidytuesday</a>.</p>
+<p>These datasets are interesting to me for a number of reasons. Given the fact that it’s election year and how the Texas primaries just occured, I felt that finding a dataset about voter turnout was especially fitting. I’ve always been politically active and encourage people, especially young people, to vote and I was curious to see how this voter turnout compared across states. As far as the catdog dataset, I personally have a cat myself and I thought it could be interesting to see if having a pet, or whether specifically owning a cat or dog, could impact the voter turnout of the various states. Potential associations that I expect are increased number of votes across states with increased number of pet households. My thought process was maybe those who own a pet feel more inclined to vote. However, the voter turnout amongst cat and dog owners is more ambiguous to me. I also predict that more urban and populous states will have greater voter turnout than rural states.</p>
+</div>
+<div id="joining-the-datasets" class="section level4">
+<h4>Joining the datasets</h4>
+<pre class="r"><code>voterturnout &lt;- voterturnout %&gt;% select(-X, -icpsr_state_code, -alphanumeric_state_code) %&gt;% filter(year == 2014)  
+catdog &lt;- catdog %&gt;% select(-X, -avg_dogs_per_household, -avg_cats_per_household)
+
+projectdata &lt;- full_join(voterturnout, catdog, by = &quot;state&quot;)</code></pre>
+<p>To join my two datasets, I did a full join with the common variable being “state”. The reason I did a full join is in order to combine the results of both left and right outer joins completely. From the voterturnout dataset, I dropped 3 cases/columns: X, icpsr_state_code, and alphanumeric_state_code. In addition, I filtered the dataset to only contain data from the year 2014 (the most recent year available). From the catdog dataset, I dropped 3 cases/columns: X, avg_dogs_per_household, and avg_cats_per_household. I dropped these columns in the datasets because I thought that they weren’t pertinent to the relationships I was trying to study. However, some problems that can be associated with dropping cases include the fact that I might actually be losing valuable data that could have held interesting correlations/findings.</p>
+</div>
+<div id="summary-statistics-six-core-dplyr-functions" class="section level4">
+<h4>Summary statistics: six core dplyr functions</h4>
+<pre class="r"><code>projectdata %&gt;% arrange(desc(votes))</code></pre>
+<pre><code>##    year                state    votes eligible_voters n_households
+## 1  2014        United States 83262122       227157964           NA
+## 2  2014           California  7513972        24440416        12974
+## 3  2014              Florida  6026802        13914216         7609
+## 4  2014             New York  3930310        13553426         7512
+## 5  2014             Illinois  3680417         9028752         5026
+## 6  2014         Pennsylvania  3535576         9689491         5172
+## 7  2014             Michigan  3188956         7383958         3804
+##    percent_pet_households n_pet_households percent_dog_owners n_dog_households
+## 1                      NA               NA                 NA               NA
+## 2                    52.9             6865               32.8             4260
+## 3                    54.4             4138               35.7             2718
+## 4                    50.6             3802               29.0             2177
+## 5                    51.8             2602               32.4             1627
+## 6                    56.9             2942               32.9             1702
+## 7                    55.4             2108               34.6             1318
+##    dog_population percent_cat_owners n_cat_households cat_population
+## 1              NA                 NA               NA             NA
+## 2            6687               28.3             3687           7118
+## 3            4210               27.3             2079           4375
+## 4            3054               29.1             2189           4261
+## 5            2365               26.3             1321           2453
+## 6            2485               33.8             1748           3544
+## 7            2036               31.3             1192           2420
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 45 rows ]</code></pre>
+<pre class="r"><code>projectdata %&gt;% filter(state == &quot;California&quot;) %&gt;% select(votes, percent_cat_owners) </code></pre>
+<pre><code>##     votes percent_cat_owners
+## 1 7513972               28.3</code></pre>
+<pre class="r"><code>projectdata %&gt;% filter(state == &quot;California&quot;) %&gt;% select(votes, percent_dog_owners)</code></pre>
+<pre><code>##     votes percent_dog_owners
+## 1 7513972               32.8</code></pre>
+<pre class="r"><code>projectdata %&gt;% filter(state == &quot;Wyoming&quot;) %&gt;% select(votes, percent_cat_owners) </code></pre>
+<pre><code>##    votes percent_cat_owners
+## 1 171153               33.9</code></pre>
+<pre class="r"><code>projectdata %&gt;% filter(state == &quot;Wyoming&quot;) %&gt;% select(votes, percent_dog_owners)</code></pre>
+<pre><code>##    votes percent_dog_owners
+## 1 171153               38.8</code></pre>
+<pre class="r"><code>pvprojectdata &lt;-projectdata %&gt;% mutate(percent_voted = (votes/eligible_voters)*100)
+dsprojectdata &lt;- projectdata %&gt;% mutate(dogstate = case_when(percent_dog_owners &gt; 40 ~ &quot;high&quot;, percent_dog_owners&lt; 40 ~ &quot;low&quot;))
+dscsprojectdata &lt;- dsprojectdata %&gt;% mutate(catstate= case_when(percent_cat_owners &gt;40 ~ &quot;high&quot;, percent_cat_owners&lt;40 ~ &quot;low&quot;))
+dscsprojectdata %&gt;% group_by(catstate) %&gt;% na.omit %&gt;% summarize(mean(votes)) </code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   catstate `mean(votes)`
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 high           787074.
+## 2 low           1726996.</code></pre>
+<pre class="r"><code>dscsprojectdata %&gt;% group_by(dogstate) %&gt;% na.omit %&gt;% summarize(mean(votes)) </code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   dogstate `mean(votes)`
+##   &lt;chr&gt;            &lt;dbl&gt;
+## 1 high          1258256.
+## 2 low           1862845.</code></pre>
+</div>
+<div id="summary-statistics-additional-dplyr-functions" class="section level4">
+<h4>Summary statistics: additional dplyr functions</h4>
+<pre class="r"><code># for each numeric variable
+projectdata %&gt;% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), ndistinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligiblevoters = mean(eligible_voters, na.rm = T), n(), sd_eligiblevoters = sd(eligible_voters, na.rm = T), ndistinct_eligiblevoters= n_distinct(eligible_voters), min_eligiblevoters= min(eligible_voters, na.rm = T), max_eligiblevoters= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), ndistinct_nhouseholds= n_distinct(n_households), min_nhouseholds= min(n_households, na.rm = T), max_nhouseholds= max(n_households, na.rm = T), mean_percentpethouseholds = mean(percent_pet_households, na.rm = T), n(), sd_percentpethouseholds = sd(percent_pet_households, na.rm = T), ndistinct_percentpethouseholds= n_distinct(percent_pet_households), min_percentpethouseholds= min(percent_pet_households, na.rm = T), max_percentpethouseholds= max(percent_pet_households, na.rm = T), mean_percentdogowners = mean(percent_dog_owners, na.rm = T), n(), sd_percentdogowners = sd(percent_dog_owners, na.rm = T), ndistinct_percentdogowners= n_distinct(percent_dog_owners), min_percentdogowners= min(percent_dog_owners, na.rm = T), max_percentdogowners= max(percent_dog_owners, na.rm = T), mean_percentcatowners = mean(percent_cat_owners, na.rm = T), n(), sd_percentcatowners = sd(percent_cat_owners, na.rm = T), ndistinct_percentcatowners= n_distinct(percent_cat_owners), min_percentcatowners= min(percent_cat_owners, na.rm = T), max_percentcatowners= max(percent_cat_owners, na.rm = T)) %&gt;% pivot_longer(-2) %&gt;% separate(name, into= c(&quot;something&quot;, &quot;variable&quot;)) %&gt;% pivot_wider(names_from = &quot;something&quot;) %&gt;% na.omit</code></pre>
+<pre><code>## # A tibble: 6 x 7
+##   `n()` variable                  mean          sd ndistinct      min        max
+##   &lt;int&gt; &lt;chr&gt;                    &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1    52 votes                3276309.  11759168.          50 171153       8.33e7
+## 2    52 eligiblevoters       8638594.  31234906.          52 431434       2.27e8
+## 3    52 nhouseholds             2404.      2514.          50    221       1.30e4
+## 4    52 percentpethouseholds      56.9        6.93        44     21.9     7.08e1
+## 5    52 percentdogowners          37.0        6.67        44     13.1     4.79e1
+## 6    52 percentcatowners          31.6        5.68        43     11.6     4.95e1</code></pre>
+<p>To help clearly display the results of the summary statistics, I used pivot_wider/pivot_longer to make an easier to read table. I first piped the whole summary statistic output into pivot_longer in order to make all but the second column (which is n()) of the table longer. Then I used the separate function to separate the names from the “name” column into two new columns called “something” and “variable”. By default, the separate function separates based off of “_“. Then I finally used pivot_wider to make the names from”something&quot; into a wider table.</p>
+</div>
+<div id="summary-statistics-continued" class="section level4">
+<h4>Summary statistics continued</h4>
+<pre class="r"><code>#after grouping by one categorical variable
+dscsprojectdata %&gt;% group_by(dogstate) %&gt;% na.omit %&gt;% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), n_distinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligible_voters = mean(eligible_voters, na.rm = T), n(), sd_eligible_voters = sd(eligible_voters, na.rm = T), n_distinct_ev= n_distinct(eligible_voters), min_ev= min(eligible_voters, na.rm = T), max_ev= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), n_distinct_nh= n_distinct(n_households), min_nh= min(n_households, na.rm = T), max_nh= max(n_households, na.rm = T), mean_percentpeth = mean(percent_pet_households, na.rm = T), n(), sd_pph = sd(percent_pet_households, na.rm = T), n_distinct_pph= n_distinct(percent_pet_households), min_pph= min(percent_pet_households, na.rm = T), max_pph= max(percent_pet_households, na.rm = T), mean_percentdog = mean(percent_dog_owners, na.rm = T), n(), sd_percentdog = sd(percent_dog_owners, na.rm = T), n_distinct_percentdog= n_distinct(percent_dog_owners), min_percentdog= min(percent_dog_owners, na.rm = T), max_percentdog= max(percent_dog_owners, na.rm = T), mean_percentcat = mean(percent_cat_owners, na.rm = T), n(), sd_percentcat = sd(percent_cat_owners, na.rm = T), n_distinct_percentcat= n_distinct(percent_cat_owners), min_percentcat= min(percent_cat_owners, na.rm = T), max_percentcat= max(percent_cat_owners, na.rm = T)) </code></pre>
+<pre><code>## # A tibble: 2 x 32
+##   dogstate mean_votes `n()` sd_votes n_distinct_votes min_votes max_votes
+##   &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;            &lt;int&gt;     &lt;int&gt;     &lt;int&gt;
+## 1 high       1258256.    15  803037.               15    282291   2939767
+## 2 low        1862845.    31 1733683.               31    171153   7513972
+## # … with 25 more variables: mean_eligible_voters &lt;dbl&gt;,
+## #   sd_eligible_voters &lt;dbl&gt;, n_distinct_ev &lt;int&gt;, min_ev &lt;int&gt;, max_ev &lt;int&gt;,
+## #   mean_nhouseholds &lt;dbl&gt;, sd_nhouseholds &lt;dbl&gt;, n_distinct_nh &lt;int&gt;,
+## #   min_nh &lt;int&gt;, max_nh &lt;int&gt;, mean_percentpeth &lt;dbl&gt;, sd_pph &lt;dbl&gt;,
+## #   n_distinct_pph &lt;int&gt;, min_pph &lt;dbl&gt;, max_pph &lt;dbl&gt;, mean_percentdog &lt;dbl&gt;,
+## #   sd_percentdog &lt;dbl&gt;, n_distinct_percentdog &lt;int&gt;, min_percentdog &lt;dbl&gt;,
+## #   max_percentdog &lt;dbl&gt;, mean_percentcat &lt;dbl&gt;, sd_percentcat &lt;dbl&gt;,
+## #   n_distinct_percentcat &lt;int&gt;, min_percentcat &lt;dbl&gt;, max_percentcat &lt;dbl&gt;</code></pre>
+<pre class="r"><code># grouping by two categorical variables
+dscsprojectdata %&gt;% group_by(dogstate, catstate) %&gt;% na.omit %&gt;% summarize(mean_votes = mean(votes, na.rm = T), n(), sd_votes = sd(votes, na.rm = T), n_distinct_votes = n_distinct(votes), min_votes = min(votes, na.rm = T), max_votes = max(votes, na.rm = T), mean_eligible_voters = mean(eligible_voters, na.rm = T), n(), sd_eligible_voters = sd(eligible_voters, na.rm = T), n_distinct_ev= n_distinct(eligible_voters), min_ev= min(eligible_voters, na.rm = T), max_ev= max(eligible_voters, na.rm = T), mean_nhouseholds = mean(n_households, na.rm = T), n(), sd_nhouseholds = sd(n_households, na.rm = T), n_distinct_nh= n_distinct(n_households), min_nh= min(n_households, na.rm = T), max_nh= max(n_households, na.rm = T), mean_percentpeth = mean(percent_pet_households, na.rm = T), n(), sd_pph = sd(percent_pet_households, na.rm = T), n_distinct_pph= n_distinct(percent_pet_households), min_pph= min(percent_pet_households, na.rm = T), max_pph= max(percent_pet_households, na.rm = T), mean_percentdog = mean(percent_dog_owners, na.rm = T), n(), sd_percentdog = sd(percent_dog_owners, na.rm = T), n_distinct_percentdog= n_distinct(percent_dog_owners), min_percentdog= min(percent_dog_owners, na.rm = T), max_percentdog= max(percent_dog_owners, na.rm = T), mean_percentcat = mean(percent_cat_owners, na.rm = T), n(), sd_percentcat = sd(percent_cat_owners, na.rm = T), n_distinct_percentcat= n_distinct(percent_cat_owners), min_percentcat= min(percent_cat_owners, na.rm = T), max_percentcat= max(percent_cat_owners, na.rm = T)) </code></pre>
+<pre><code>## # A tibble: 3 x 33
+## # Groups:   dogstate [2]
+##   dogstate catstate mean_votes `n()` sd_votes n_distinct_votes min_votes
+##   &lt;chr&gt;    &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt;            &lt;int&gt;     &lt;int&gt;
+## 1 high     low        1258256.    15  803037.               15    282291
+## 2 low      high        787074.     3  685675.                3    202445
+## 3 low      low        1978106.    28 1778322.               28    171153
+## # … with 26 more variables: max_votes &lt;int&gt;, mean_eligible_voters &lt;dbl&gt;,
+## #   sd_eligible_voters &lt;dbl&gt;, n_distinct_ev &lt;int&gt;, min_ev &lt;int&gt;, max_ev &lt;int&gt;,
+## #   mean_nhouseholds &lt;dbl&gt;, sd_nhouseholds &lt;dbl&gt;, n_distinct_nh &lt;int&gt;,
+## #   min_nh &lt;int&gt;, max_nh &lt;int&gt;, mean_percentpeth &lt;dbl&gt;, sd_pph &lt;dbl&gt;,
+## #   n_distinct_pph &lt;int&gt;, min_pph &lt;dbl&gt;, max_pph &lt;dbl&gt;, mean_percentdog &lt;dbl&gt;,
+## #   sd_percentdog &lt;dbl&gt;, n_distinct_percentdog &lt;int&gt;, min_percentdog &lt;dbl&gt;,
+## #   max_percentdog &lt;dbl&gt;, mean_percentcat &lt;dbl&gt;, sd_percentcat &lt;dbl&gt;,
+## #   n_distinct_percentcat &lt;int&gt;, min_percentcat &lt;dbl&gt;, max_percentcat &lt;dbl&gt;</code></pre>
+</div>
+<div id="summary-statistics-correlations-and-correlation-matrix" class="section level4">
+<h4>Summary statistics: correlations and correlation matrix</h4>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% summarize(cor(votes, n_dog_households))</code></pre>
+<pre><code>##   cor(votes, n_dog_households)
+## 1                    0.9652006</code></pre>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% summarize(cor(votes, n_cat_households))</code></pre>
+<pre><code>##   cor(votes, n_cat_households)
+## 1                    0.9666683</code></pre>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% summarize(cor(votes, n_pet_households))</code></pre>
+<pre><code>##   cor(votes, n_pet_households)
+## 1                    0.9729474</code></pre>
+<pre class="r"><code>numericprojectdata &lt;- projectdata %&gt;% na.omit %&gt;% select_if(is.numeric)
+cor(numericprojectdata)</code></pre>
+<pre><code>##                        year      votes eligible_voters n_households
+## year                      1         NA              NA           NA
+## votes                    NA  1.0000000       0.9698909    0.9704418
+## eligible_voters          NA  0.9698909       1.0000000    0.9993218
+## n_households             NA  0.9704418       0.9993218    1.0000000
+## percent_pet_households   NA -0.1369334      -0.1512991   -0.1524359
+## n_pet_households         NA  0.9729474       0.9970819    0.9974783
+## percent_dog_owners       NA -0.1270446      -0.1200721   -0.1206125
+## n_dog_households         NA  0.9652006       0.9871350    0.9874734
+##                        percent_pet_households n_pet_households
+## year                                       NA               NA
+## votes                             -0.13693341        0.9729474
+## eligible_voters                   -0.15129912        0.9970819
+## n_households                      -0.15243590        0.9974783
+## percent_pet_households             1.00000000       -0.1122760
+## n_pet_households                  -0.11227596        1.0000000
+## percent_dog_owners                 0.79135044       -0.0764926
+## n_dog_households                  -0.08906017        0.9937337
+##                        percent_dog_owners n_dog_households dog_population
+## year                                   NA               NA             NA
+## votes                        -0.127044581      0.965200575     0.94229061
+## eligible_voters              -0.120072120      0.987135023     0.96690189
+## n_households                 -0.120612526      0.987473355     0.96648625
+## percent_pet_households        0.791350438     -0.089060168    -0.05170477
+## n_pet_households             -0.076492602      0.993733677     0.97774566
+## percent_dog_owners            1.000000000     -0.003721934     0.06934686
+## n_dog_households             -0.003721934      1.000000000     0.99340492
+##                        percent_cat_owners n_cat_households cat_population
+## year                                   NA               NA             NA
+## votes                          -0.2074695        0.9666683     0.96059838
+## eligible_voters                -0.2259571        0.9922388     0.98430327
+## n_households                   -0.2266138        0.9923653     0.98404550
+## percent_pet_households          0.8221922       -0.1050142    -0.09742123
+## n_pet_households               -0.2003401        0.9951984     0.98967934
+## percent_dog_owners              0.4249524       -0.1017129    -0.07427229
+## n_dog_households               -0.2174236        0.9812588     0.98064023
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 4 rows ]</code></pre>
+<p><strong>Discussion of all results</strong>: I initially used the dplyr functions to simply explore my dataset and see what I could find. After descending the number of votes, I see that California had the most number of votes while Wyoming had the least number of votes. I filtered by both states to see the percentage of cat and dog owners for both of those states. California had 28.3% cat owners and 32.8% dog owners. Wyoming had 33.9% cat owners and 38.8% dog owners. Using mutate, I created a new column called “percent_voted” to represent the percent of eligible voters that actually voted. I also used mutate to create 2 new categorical variables (dogstate and catstate) and then grouped by each variable to determine their mean votes. Both high dogstate and catstate are states in which the percent dog or cat owners are greater than 40%. I then used the dplyr functions to more specifically find the summary statistics (mean, sd, n_distinct, min, max) first of my numeric variables, then after grouping by one categorical variable (dogstate), and then after grouping by two categorical vaariables (dogstate and catstate). All the results are listed in the table for each numeric variable but to summarize, I will only list a few. For instance, mean votes was 3276309.265306. For high dogstate it was 1258256 while for low dogstate it was 1862845. After grouping by dogstate and catstate, mean votes was 1258256.4 (high dogstate/low catstate), 787074.3 (low dogstate/high catstate), and 1978106.4 (low dogstate/low catstate). For number of pet households, the min was 221.0. After grouping by dogstate, the min was 333 (high dogstate) and 221 (low dogstate). After grouping by catstate and dogstate, the min was 333 (high dogstate/low catstate), 265 (low dogstate/high catstate), and 221 (low dogstate/low catstate).</p>
+<p>As for correlations, the correlation between votes and number of dog households is 0.9652006. The correlation between votes and number of cat households is 0.9666683. Finally the correlation between votes and number of pet households is 0.9729474. All these correlations are close to one and therefore suggest a stronger correlation between those respective numeric variables. I also created a correlation matrix that essentially illustrates the correlations between all numeric variables in my project dataset.</p>
+</div>
+<div id="correlation-heatmap" class="section level4">
+<h4>Correlation heatmap</h4>
+<pre class="r"><code>#heat map 
+df&lt;-projectdata%&gt;%na.omit%&gt;%select_if(is.numeric)
+cor(df)</code></pre>
+<pre><code>##                        year      votes eligible_voters n_households
+## year                      1         NA              NA           NA
+## votes                    NA  1.0000000       0.9698909    0.9704418
+## eligible_voters          NA  0.9698909       1.0000000    0.9993218
+## n_households             NA  0.9704418       0.9993218    1.0000000
+## percent_pet_households   NA -0.1369334      -0.1512991   -0.1524359
+## n_pet_households         NA  0.9729474       0.9970819    0.9974783
+## percent_dog_owners       NA -0.1270446      -0.1200721   -0.1206125
+## n_dog_households         NA  0.9652006       0.9871350    0.9874734
+##                        percent_pet_households n_pet_households
+## year                                       NA               NA
+## votes                             -0.13693341        0.9729474
+## eligible_voters                   -0.15129912        0.9970819
+## n_households                      -0.15243590        0.9974783
+## percent_pet_households             1.00000000       -0.1122760
+## n_pet_households                  -0.11227596        1.0000000
+## percent_dog_owners                 0.79135044       -0.0764926
+## n_dog_households                  -0.08906017        0.9937337
+##                        percent_dog_owners n_dog_households dog_population
+## year                                   NA               NA             NA
+## votes                        -0.127044581      0.965200575     0.94229061
+## eligible_voters              -0.120072120      0.987135023     0.96690189
+## n_households                 -0.120612526      0.987473355     0.96648625
+## percent_pet_households        0.791350438     -0.089060168    -0.05170477
+## n_pet_households             -0.076492602      0.993733677     0.97774566
+## percent_dog_owners            1.000000000     -0.003721934     0.06934686
+## n_dog_households             -0.003721934      1.000000000     0.99340492
+##                        percent_cat_owners n_cat_households cat_population
+## year                                   NA               NA             NA
+## votes                          -0.2074695        0.9666683     0.96059838
+## eligible_voters                -0.2259571        0.9922388     0.98430327
+## n_households                   -0.2266138        0.9923653     0.98404550
+## percent_pet_households          0.8221922       -0.1050142    -0.09742123
+## n_pet_households               -0.2003401        0.9951984     0.98967934
+## percent_dog_owners              0.4249524       -0.1017129    -0.07427229
+## n_dog_households               -0.2174236        0.9812588     0.98064023
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 4 rows ]</code></pre>
+<pre class="r"><code>tidycor&lt;-cor(df)%&gt;%as.data.frame%&gt;%
+rownames_to_column%&gt;%
+pivot_longer(-1,names_to=&quot;name&quot;,values_to=&quot;correlation&quot;)
+head(tidycor)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   rowname name                   correlation
+##   &lt;chr&gt;   &lt;chr&gt;                        &lt;dbl&gt;
+## 1 year    year                             1
+## 2 year    votes                           NA
+## 3 year    eligible_voters                 NA
+## 4 year    n_households                    NA
+## 5 year    percent_pet_households          NA
+## 6 year    n_pet_households                NA</code></pre>
+<pre class="r"><code>tidycor%&gt;%ggplot(aes(rowname,name,fill=correlation))+
+geom_tile()+
+scale_fill_gradient2(low=&quot;red&quot;,mid=&quot;white&quot;,high=&quot;blue&quot;)+ 
+geom_text(aes(label=round(correlation,2)),color = &quot;black&quot;, size = 2.5)+ 
+theme(axis.text.x = element_text(angle = 90, hjust = 1))</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /> The correlation heatmap shows a lot of interesting correlations between each of my numeric variables. Those cells highlighted in dark blue illustrate a higher correlation amongst those numeric variables, while those in pink represent numeric variables that do not really have any correlation. From my heatmap, I can see that votes is highly correlated to cat_population, dog_population, eligible_voters, n_cat_households, n_dog_households, n_households, and n_pet_households. However, it isnt as correlated to percent_cat_owners, percent_dog_owners, or percent_pet_households. On the other hand, percent_pet_households seems to be correlated but not as strongly (0.82) to percent_cat_owners and percent_dog_owners (0.79). One of the lowest correlations seems to be -0.05 which is between percent_pet_households and dog_population.</p>
+</div>
+<div id="additional-graphs" class="section level4">
+<h4>Additional graphs</h4>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% filter(state != &quot;United States&quot;) %&gt;% ggplot(aes(reorder(state,votes),votes))+
+geom_bar(size=3,aes(fill=log10(n_pet_households)), stat = &quot;identity&quot;)+
+scale_fill_gradient(low=&quot;yellow&quot;, high=&quot;red&quot;) +
+theme(axis.text.x = element_text(angle = 90, size =6)) +
+ggtitle(&quot;Number of Pet Households and Votes per State&quot;) + xlab(&quot;States&quot;) + ylab(&quot;Votes&quot;) </code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /> This graph visualizes the relationship between the number of votes and number of pet households for each state. It is ordered by state with increasing number of votes. From the graph, it can be seen that states with a greater number of votes generally have a greater number of pet households. This finding matches with what I orginally had predicted! In this case, California has the highest number of votes and has the highest number of pet households. On the other hand, Wyoming has the lowest number of votes and the lowest number of pet households.</p>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% filter(state != &quot;United States&quot;) %&gt;% ggplot(aes(reorder(state, votes), votes)) + geom_bar(aes(fill = n_dog_households), stat = &quot;summary&quot;, fun.y =&quot;mean&quot;) + theme(axis.text.x = element_text(angle = 90, size = 6)) + ggtitle(&quot;Number of Dog Households and Votes per State&quot;) + xlab(&quot;States&quot;) + ylab(&quot;Votes&quot;) + scale_y_continuous(breaks=seq(0, 8000000, 1000000))</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /> This graph visualizes the relationship between the number of votes and number of dog households for each state. The graph is ordered by state with increasing votes. From the graph, it can be seen that states with a greater number of votes generally have a greater number of dog households. In this case, California has the highest number of votes and has the highest number of dog households. On the other hand, Wyoming has the lowest number of votes and the lowest number of dog households. Whether cat or dog households vote more was a prediction that I was more unsure of. To see if I can determine this, I made another graph of cat households and votes per state below.</p>
+<pre class="r"><code>projectdata %&gt;% na.omit %&gt;% filter(state != &quot;United States&quot;) %&gt;% ggplot(aes(reorder(state, votes), votes)) + geom_bar(aes(fill = n_cat_households), stat = &quot;summary&quot;, fun.y =&quot;mean&quot;) + theme(axis.text.x = element_text(angle = 90, size = 6)) + ggtitle(&quot;Number of Cat Households and Votes per State&quot;) + xlab(&quot;States&quot;) + ylab(&quot;Votes&quot;) </code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /> This graph visualizes the relationship between the number of votes and number of cat households in each state. It also is ordered by state with increasing votes. From the graph, it can be seen that states with a greater number of votes generally also have a greater number of cat households. In this case, California has the highest number of votes and has the greatest number of cat households. On the other hand, Wyoming has the lowest number of votes and the lowest number of cat households. To compare with the previous graph, California had the highest number of votes and they had about 4000 dog households but 3000 cat households. Wyoming had the lowest number of votes but they had less than 1000 cat and dog households. I randomly picked another state to see if there was a clearer association. When looking at Georgia, they had about 2000 dog households and closer to a 1000 cat households. However, a clear association could not be deduced from the graph alone with respect to whether or not cat or dog households vote more.</p>
+</div>
+<div id="k-means-clustering" class="section level4">
+<h4><strong>K-means clustering</strong></h4>
+</div>
+<div id="step-1-process-data" class="section level4">
+<h4>Step 1: process data</h4>
+<pre class="r"><code>library(cluster)
+clust_dat&lt;-projectdata%&gt;%dplyr::select(n_pet_households, n_cat_households, n_dog_households, votes) %&gt;% na.omit</code></pre>
+<p>In this first step, I chose four numeric variables to perform clustering analysis on: n_pet_households, n_cat_households, n_dog_households, and votes. I scaled the numeric variables in step 3 during the k-means analysis.</p>
+</div>
+<div id="step-2-choosing-number-of-clusters" class="section level4">
+<h4>Step 2: choosing number of clusters</h4>
+<pre class="r"><code>sil_width&lt;-vector() 
+for(i in 2:10){
+kms &lt;- kmeans(clust_dat,centers=i) 
+sil &lt;- silhouette(kms$cluster,dist(clust_dat)) 
+sil_width[i]&lt;-mean(sil[,3]) 
+}
+ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name=&quot;k&quot;,breaks=1:10)</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /> As can be seen from this graph, 2 clusters has the highest average silhouette width followed by 5 clusters. In general, the higher the average silhouette width the better. Therefore, I decided to do my cluster analysis with 2 clusters.</p>
+</div>
+<div id="step-3-k-means-analysis" class="section level4">
+<h4>Step 3: k-means analysis</h4>
+<pre class="r"><code>kmeans1 &lt;- clust_dat %&gt;% scale %&gt;% kmeans(2)
+kmeans1</code></pre>
+<pre><code>## K-means clustering with 2 clusters of sizes 40, 6
+## 
+## Cluster means:
+##   n_pet_households n_cat_households n_dog_households      votes
+## 1       -0.3023291        -0.304955       -0.2913949 -0.2949959
+## 2        2.0155273         2.033033        1.9426328  1.9666395
+## 
+## Clustering vector:
+##  2  4  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25 27 28 29 30 
+##  1  1  1  2  1  1  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1  1  1  1 
+## 31 32 34 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 
+##  1  1  2  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1 
+## 
+## Within cluster sum of squares by cluster:
+## [1] 40.15956 30.56467
+##  (between_SS / total_SS =  60.7 %)
+## 
+## Available components:
+## 
+## [1] &quot;cluster&quot;      &quot;centers&quot;      &quot;totss&quot;        &quot;withinss&quot;     &quot;tot.withinss&quot;
+## [6] &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;         &quot;ifault&quot;</code></pre>
+<pre class="r"><code>kmeans1$centers</code></pre>
+<pre><code>##   n_pet_households n_cat_households n_dog_households      votes
+## 1       -0.3023291        -0.304955       -0.2913949 -0.2949959
+## 2        2.0155273         2.033033        1.9426328  1.9666395</code></pre>
+<pre class="r"><code>kmeans1$cluster</code></pre>
+<pre><code>##  2  4  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25 27 28 29 30 
+##  1  1  1  2  1  1  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1  1  1  1 
+## 31 32 34 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 
+##  1  1  2  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1</code></pre>
+<pre class="r"><code>kmeansclust &lt;- clust_dat %&gt;% mutate(cluster=as.factor(kmeans1$cluster))
+kmeansclust</code></pre>
+<pre><code>##    n_pet_households n_cat_households n_dog_households   votes cluster
+## 1              1088              501              807 1191274       1
+## 2              1497              743             1008 1537671       1
+## 3               716              351              550  852642       1
+## 4              6865             3687             4260 7513972       2
+## 5              1217              642              845 2080071       1
+## 6               728              427              379 1096556       1
+## 7               189              113              113  238110       1
+## 8                63               33               38  177176       1
+## 9              4138             2079             2718 6026802       2
+## 10             2093             1037             1522 2596947       1
+## 11              352              196              242  445307       1
+## 12             2602             1321             1627 3680417       2
+## 13             1484              852              989 1387622       1
+## 14              654              370              407 1142284       1
+## 15              691              378              480  887023       1
+## 16             1094              654              816 1459409       1
+## 17              937              441              619 1503975       1
+## 18              345              254              190  616996       1
+## 19             1134              645              667 1745104       1
+## 20             1318              892              618 2186789       1
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 26 rows ]</code></pre>
+<pre class="r"><code>kmeansclust %&gt;% ggplot(aes(n_pet_households,votes,color=cluster)) + geom_point()</code></pre>
+<p><img src="../project1_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> I performed a k-means cluster analysis and then used ggplot to visualize the 2 clusters. The 2 clusters created are of sizes 9 and 37. Essentially the graph shows the two variables (votes and number of pet households), but in clusters based on four variables (votes, number of pet households, number of dog households, and number of cat households). In general, I see a trend that as number of pet households increase so do the number of votes. It can also be seen that cluster 1 (red dots) generally has a higher number of pet households and a higher number of votes than cluster 2 (blue dots). The centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 1 are 1.5562925, 1.5498753, 1.5542284, and 1.5850703 respectively. On the other hand, the centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 2 are -0.3785576, -0.3769967, -0.3780556, and -0.3855576.</p>
+<p>```</p>
+</div>
+</div>
+
+              <hr>
+              <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div>
+            </div>
+          </div>
+          <hr>
+        <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../js/docs.min.js"></script>
+<script src="../js/main.js"></script>
+
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>

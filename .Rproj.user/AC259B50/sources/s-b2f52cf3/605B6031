@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1589232447669.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "605B6031",
+    "lastKnownWriteTime" : 1589232550,
+    "last_content_update" : 1589232550665,
+    "path" : "~/kproject2.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "135,38",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
