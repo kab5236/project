@@ -3,4 +3,63 @@ Reinitialized existing Git repository in /stor/home/kab5236/Website/.git/
 ]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git add . #add all files in repository to be uploaded
 mmit"
 git remote add origin https://github.com/kab5236/Website.git 
-git push origin master
+git push origin master]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git commit -m "first website commit"
+[master 9a4c09b] first website commit
+ Committer: Kiana Banafshay <kab5236@educcomp03.ccbb.utexas.edu>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 4 files changed, 8 insertions(+), 3 deletions(-)
+ delete mode 100644 .Rproj.user/AC259B50/console06/2633C6A0
+ create mode 100644 .Rproj.user/AC259B50/console06/A24D971F
+ rewrite .Rproj.user/AC259B50/console06/INDEX001 (69%)
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git remote add origin https://github.com/kab5236/Website.git 
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -t, --track <branch>  branch(es) to track
+    -m, --master <branch>
+                          master branch
+    --mirror[=<push|fetch>]
+                          set up remote as a mirror to push to or fetch from
+
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git push origin master
+Username for 'https://github.com': kab5236
+Password for 'https://kab5236@github.com': 
+remote: Repository not found.
+fatal: repository 'https://github.com/USERNAME/WEBSITE_REPOSITORY.git/' not found
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git commit -m "first commit"
+On branch master
+Changes not staged for commit:
+	[31mmodified:   .Rproj.user/AC259B50/console06/A24D971F[m
+
+Untracked files:
+	[31m.Rproj.user/AC259B50/console06/A24D971F.env[m
+
+no changes added to commit
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git remote add origin https://github.com/kab5236/Website.git
+fatal: remote origin already exists.
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git push -u origin master
+Username for 'https://github.com': kab5236
+Password for 'https://kab5236@github.com': 
+remote: Repository not found.
+fatal: repository 'https://github.com/USERNAME/WEBSITE_REPOSITORY.git/' not found
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ Is
+WARNING:root:could not open file '/etc/apt/sources.list.d/nodesource.list'
+
+Is: command not found
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ rm -rf *.git
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git init
+Reinitialized existing Git repository in /stor/home/kab5236/Website/.git/
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git add .
