@@ -1,0 +1,18 @@
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ [K]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd ~/Desktop/PROJECT_DIRECTORY_NAME[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KWebsite
+bash: cd: /stor/home/kab5236/Desktop/Website: No such file or directory
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd ~/Desktop/PROJECT_DIRECTORY_NAMEHo[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KHome/Website
+bash: cd: /stor/home/kab5236/Home/Website: No such file or directory
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd ~/Desktop/PROJECT_DIRECTORY_NAME[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[KWebsite
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd ~/Website
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ gitinitcd[K[K[K[K[K[K[K[K[Kcd: /stor/home/kab2[K5236[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kd ~ [K/stor/home/kab5236.[K/Website
+bash: cd: /stor/home/kab5236/stor/home/kab5236/Website: No such file or directory
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ 
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git --version
+git version 2.17.1
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd`/Website[K[K[K[K[K[K[K[K[K[Kd/Website
+bash: cd/Website: No such file or directory
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cs[Kd `[K~/Website
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ cd ~/Website
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git init
+Reinitialized existing Git repository in /stor/home/kab5236/Website/.git/
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git add .
