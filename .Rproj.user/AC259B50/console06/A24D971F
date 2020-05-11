@@ -1,0 +1,6 @@
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ [K]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git init #initialize local git respository
+Reinitialized existing Git repository in /stor/home/kab5236/Website/.git/
+]0;/stor/home/kab5236/Website]0;kab5236@educcomp03: ~/Website[01;32mkab5236@educcomp03[00m:[01;34m~/Website[00m$ git add . #add all files in repository to be uploaded
+mmit"
+git remote add origin https://github.com/kab5236/Website.git 
+git push origin master
