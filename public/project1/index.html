@@ -351,22 +351,22 @@ ggplot()+geom_line(aes(x=1:10,y=sil_width))+scale_x_continuous(name=&quot;k&quot
 <h4>Step 3: k-means analysis</h4>
 <pre class="r"><code>kmeans1 &lt;- clust_dat %&gt;% scale %&gt;% kmeans(2)
 kmeans1</code></pre>
-<pre><code>## K-means clustering with 2 clusters of sizes 40, 6
+<pre><code>## K-means clustering with 2 clusters of sizes 37, 9
 ## 
 ## Cluster means:
 ##   n_pet_households n_cat_households n_dog_households      votes
-## 1       -0.3023291        -0.304955       -0.2913949 -0.2949959
-## 2        2.0155273         2.033033        1.9426328  1.9666395
+## 1       -0.3785576       -0.3769967       -0.3780556 -0.3855576
+## 2        1.5562925        1.5498753        1.5542284  1.5850703
 ## 
 ## Clustering vector:
 ##  2  4  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25 27 28 29 30 
-##  1  1  1  2  1  1  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1  1  1  1 
+##  1  1  1  2  1  1  1  1  2  2  1  2  1  1  1  1  1  1  1  1  2  1  1  1  1  1 
 ## 31 32 34 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 
-##  1  1  2  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1 
+##  1  1  2  2  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1 
 ## 
 ## Within cluster sum of squares by cluster:
-## [1] 40.15956 30.56467
-##  (between_SS / total_SS =  60.7 %)
+## [1] 26.83885 44.04157
+##  (between_SS / total_SS =  60.6 %)
 ## 
 ## Available components:
 ## 
@@ -374,13 +374,13 @@ kmeans1</code></pre>
 ## [6] &quot;betweenss&quot;    &quot;size&quot;         &quot;iter&quot;         &quot;ifault&quot;</code></pre>
 <pre class="r"><code>kmeans1$centers</code></pre>
 <pre><code>##   n_pet_households n_cat_households n_dog_households      votes
-## 1       -0.3023291        -0.304955       -0.2913949 -0.2949959
-## 2        2.0155273         2.033033        1.9426328  1.9666395</code></pre>
+## 1       -0.3785576       -0.3769967       -0.3780556 -0.3855576
+## 2        1.5562925        1.5498753        1.5542284  1.5850703</code></pre>
 <pre class="r"><code>kmeans1$cluster</code></pre>
 <pre><code>##  2  4  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25 27 28 29 30 
-##  1  1  1  2  1  1  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1  1  1  1 
+##  1  1  1  2  1  1  1  1  2  2  1  2  1  1  1  1  1  1  1  1  2  1  1  1  1  1 
 ## 31 32 34 35 36 37 38 39 40 41 42 43 44 46 47 48 49 50 51 52 
-##  1  1  2  1  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1</code></pre>
+##  1  1  2  2  1  2  1  1  2  1  1  1  1  1  1  1  1  1  1  1</code></pre>
 <pre class="r"><code>kmeansclust &lt;- clust_dat %&gt;% mutate(cluster=as.factor(kmeans1$cluster))
 kmeansclust</code></pre>
 <pre><code>##    n_pet_households n_cat_households n_dog_households   votes cluster
@@ -393,7 +393,7 @@ kmeansclust</code></pre>
 ## 7               189              113              113  238110       1
 ## 8                63               33               38  177176       1
 ## 9              4138             2079             2718 6026802       2
-## 10             2093             1037             1522 2596947       1
+## 10             2093             1037             1522 2596947       2
 ## 11              352              196              242  445307       1
 ## 12             2602             1321             1627 3680417       2
 ## 13             1484              852              989 1387622       1
