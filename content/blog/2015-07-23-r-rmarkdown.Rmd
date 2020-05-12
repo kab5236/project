@@ -3,7 +3,7 @@ title: "Rstudio and Python"
 author: "Kiana"
 date: 2020-05-12T21:13:14-05:00
 categories: ["R"]
-tags: ["R Markdown", "python", "rstudio", "lists", "count"]
+tags: ["R Markdown", "python", "rstudio"]
 ---
 
 ```{r setup, include=FALSE}
@@ -25,7 +25,7 @@ show <- "Cheers to"
 show = "Class of 2020"
 print(r.show, show)
 ```
-By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned "Cheers to" to "show". Using the Python code chunk, I also assigned "Class of 2020" to "show". Then I printed both "show" together to get "Cheers to class of 2020". It is important to note that when I went to go print the code chunk, I put an "r." in front of "show" in order to access the R-defined object since I'm in the python code chunk. If I was in the R code chunk, I would put "py$" in front of "show" instead. 
+By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned "Cheers to" to "show". Using the Python code chunk, I also assigned "Class of 2020" to "show". Then I printed both "show" together to get "Cheers to class of 2020". It is important to note that when I went to go print the code chunk, I put an "r." in front of "show" in order to access the R-defined object since I'm in the Python code chunk. If I was in the R code chunk, I would put "py$" in front of "show" instead. 
 
 
 Here is a fun celebratory cake I baked for graduating (and my birthday): 
