@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Portfolio</title>
+    <link>/tags/python/</link>
+    <description>Recent content in python on Portfolio</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <lastBuildDate>Tue, 12 May 2020 21:13:14 -0500</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rstudio and Python</title>
+      <link>/blog/2015-07-23-r-rmarkdown/</link>
+      <pubDate>Tue, 12 May 2020 21:13:14 -0500</pubDate>
+      
+      <guid>/blog/2015-07-23-r-rmarkdown/</guid>
+      <description>Which one is the best language for data science? While there are many pros and cons of each, it ultimately comes down to your own personal preference. For instance, there are many things that Rstudio can do that Python can’t and vice versa. On the flip side, Rstudio and Python can do a lot of the same things but they just use different code to get there. If I haven’t confused you enough, something that I actually found to be really neat is that you can actually use both at the same time!</description>
+    </item>
+    
+  </channel>
+</rss>

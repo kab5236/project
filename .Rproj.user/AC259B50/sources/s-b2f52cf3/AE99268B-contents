@@ -1,37 +1,33 @@
 ---
-title: "Hello R Markdown"
-author: "Frida Gomam"
-date: 2015-07-23T21:13:14-05:00
+title: "Rstudio and Python"
+author: "Kiana"
+date: 2020-05-12T21:13:14-05:00
 categories: ["R"]
-tags: ["R Markdown", "plot", "regression"]
+tags: ["R Markdown", "python", "rstudio"]
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE)
 ```
 
-# R Markdown
+# Which one is the best language for data science?
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-You can embed an R code chunk like this:
+While there are many pros and cons of each, it ultimately comes down to your own personal preference. For instance, there are many things that Rstudio can do that Python can't and vice versa. On the flip side, Rstudio and Python can do a lot of the same things but they just use different code to get there. If I haven't confused you enough, something that I actually found to be really neat is that you can actually use both at the same time! You might ask how is that even possible?! Let me show you:
 
-```{r cars}
-summary(cars)
-fit <- lm(dist ~ speed, data = cars)
-fit
+
+```{R}
+library(reticulate)
+show <- "Cheers to"
 ```
 
-# Including Plots
-
-You can also embed plots. See Figure \@ref(fig:pie) for example:
-
-```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
-par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
-  col = c('#0292D8', '#F7EA39', '#C4B632'),
-  init.angle = -50, border = NA
-)
+```{python}
+show = "Class of 2020"
+print(r.show, show)
 ```
+By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned "Cheers to" to "show". Using the Python code chunk, I also assigned "Class of 2020" to "show". Then I printed both "show" together to get "Cheers to class of 2020". It is important to note that when I went to go print the code chunk, I put an "r." in front of "show" in order to access the R-defined object since I'm in the python code chunk. If I was in the R code chunk, I would put "py$" in front of "show" instead. 
+
+
+Here is a fun celebratory cake I baked for graduating (and my birthday): 
+![](/blog/2015-07-23-r-rmarkdown_files/CakeKiana.jpg)
+
