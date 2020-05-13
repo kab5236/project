@@ -1,7 +1,7 @@
 ---
 title: 'Project 2: Modeling, Testing, and Predicting'
 author: "SDS348"
-date: ''
+date: '2020-05-13'
 output:
   html_document:
     toc: yes
@@ -14,13 +14,8 @@ output:
 
 
 
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
-<ul>
-<li><strong>0. (5 pts)</strong> Introduce your dataset and each of your variables (or just your main variables if you have lots) in a paragraph. What are they measuring? How many observations?</li>
-</ul>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
 <pre class="r"><code>credit &lt;- read.csv(&quot;https://vincentarelbundock.github.io/Rdatasets/csv/ISLR/Credit.csv&quot;)
 head(credit)</code></pre>
 <pre><code>## X ID Income Limit Rating Cards Age Education Gender
@@ -32,9 +27,6 @@ Student Married Ethnicity Balance
 ## 5 5 5 55.882 4897 357 2 68 16 Male No Yes Caucasian 331
 ## 6 6 6 80.180 8047 569 4 77 10 Male No No Caucasian 1151</code></pre>
 <p>The dataset I have chosen is the Credit Card Balance Data, which provides data surrounding credit cards as well as other pertinent customer information. More specifically, the original dataset includes 400 observations of 13 variables: ID (identification), income (in $10,000’s), limit (credit limit), rating (credit rating), cards (number of credit cards), age (in years), education (number of years), gender (male or female), student (yes or no), married (yes or no), ethnicity (African American, Asian, or Caucasian), and Balance (average credit card balance in dollars).</p>
-<ul>
-<li><strong>1. (15 pts)</strong> Perform a MANOVA testing whether any of your numeric variables (or a subset of them, if including them all doesn’t make sense) show a mean difference across levels of one of your categorical variables (3). If they do, perform univariate ANOVAs to find response(s) showing a mean difference across groups (3), and perform post-hoc t tests to find which groups differ (3). Discuss the number of tests you have performed, calculate the probability of at least one type I error (if unadjusted), and adjust the significance level accordingly (bonferroni correction) before discussing significant differences (3). Briefly discuss assumptions and whether or not they are likely to have been met (2).</li>
-</ul>
 <pre class="r"><code># Assumptions:
   # Multivariate normality
 ggplot(credit, aes(x = Limit, y = Balance)) +
@@ -82,11 +74,10 @@ summary(manproj)</code></pre>
 <pre><code>## [1] 0.01666667</code></pre>
 <p>A one-way MANOVA was conducted to determine the effect of Student (Yes or No) on two dependent variables (Balance and Limit). I first checked the assumptions of multivariate normality of DVs and homogeneity of within-group covariance matrices. When testing for multivariate normality of DVs, it was hard to tell if that assumption was met but just from eyeballing it, I could not see any distinct departures. For homogeneity, some values in the covariance matrices were similar while others were not (but overall relative homogeneity).</p>
 <p>In total, I ran 3 tests: 1 MANOVA and 2 univariate ANOVAs. I did not run a post-hoc t test since my response variable is binary. To keep the overall type I error rate at 0.05, the boneferroni adjusted signficance level is 0.01666667. After running a MANOVA, I got a p-value of &lt; 0.00000000000000022, Pillai of 0.27114, and a F(2, 397) of 73.841 which means that at least one of my response variables (Balance or Limit) significantly differs by Student status (whether the individual was a student or not). Then I ran 2 univariate ANOVAs and determined that only Balance significantly differs by Student status with a p-value of 0.0000001488 and F(1, 398) value of 28.622. The probability of making at least one type I error (if left unadjusted) is 0.142625.</p>
-<ul>
-<li><strong>2. (10 pts)</strong> Perform some kind of randomization test on your data (that makes sense). This can be anything you want! State null and alternative hypotheses, perform the test, and interpret the results (7). Create a plot visualizing the null distribution and the test statistic (3).</li>
-</ul>
-<pre class="r"><code># Randomization test
-library(dplyr)
+</div>
+<div id="randomization-test" class="section level3">
+<h3>Randomization test</h3>
+<pre class="r"><code>library(dplyr)
 set.seed(348)
 head(credit)</code></pre>
 <pre><code>## X ID Income Limit Rating Cards Age Education Gender
@@ -117,9 +108,9 @@ mean(rand_distp&gt;11.65714 | rand_distp&lt; -11.65714)</code></pre>
 {hist(rand_distp,main=&quot;&quot;,ylab=&quot;&quot;); abline(v = 11.65714,col=&quot;red&quot;)}</code></pre>
 <p><img src="/kproject2_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>I performed a randomization test on my dataset in order to determine if there is a mean difference in credit rating between individuals that are married and those that are unmarried. The null hypothesis is that the mean credit rating is the same for married individuals vs. unmarried individuals. The alternative hypothesis is that the mean credit rating is different for married vs. unmarried individuals. After running my randomization test, I got a p-value of 0.4688. Since this p-value is greater than the alpha value of 0.05, I fail to reject the null hypothesis. In other words, there is no mean difference in credit rating for married vs. unmarried individuals.</p>
-<ul>
-<li><strong>3. (35 pts)</strong> Build a linear regression model predicting one of your response variables from at least 2 other variables, including their interaction. Mean-center any numeric variables involved in the interaction.</li>
-</ul>
+</div>
+<div id="linear-regression-model" class="section level3">
+<h3>Linear Regression Model</h3>
 <pre class="r"><code># Linear Regression 
 credit$Rating_c&lt;-credit$Rating-mean(credit$Rating, na.rm = &quot;T&quot;)
 credit$Income_c&lt;-credit$Income-mean(credit$Income, na.rm = &quot;T&quot;)
@@ -200,9 +191,9 @@ ggplot()+geom_point(aes(pfitvals,presids))+geom_hline(yintercept=0, col=&quot;re
 <pre class="r"><code># Multiple R-squared =  0.8777</code></pre>
 <p>After running a linear regression on my data, I got the following interpretations. Intercept: predicted Balance for an average income and rating is 505.403507. Income_c: At an average rating, individuals show a decrease of 8.398708 in balance for every 1-unit increase in income on average. Rating_c: At an average income, individuals show an increase of 3.948726 in balance for every 1-unit increase in rating on average. Income_c:Rating_c: For every one unit increase in rating, the slope for income gets 0.00442 larger.</p>
 <p>I checked the assumptions for a linear regression and found that linearity looked okay, homoskedasticity was met (p-value: 0.8564), but my residuals were not normally distributed (p-value: &lt;0.00000000000000022). I made a plot of my residuals and could see that it skewed to the right. I then recomputed the regression results with robust standard errors via ‘coeftest(…,vcov=vcovHC(…))’. Income_c, Rating_c, and Income_c:Rating_c were all significant with p-values of &lt; 0.00000000000000022, &lt; 0.00000000000000022, and 0.001922 respectively. In other words, all these variables are significant predictors of Balance. The p-value for the interaction term changed from 0.00442 to 0.001922 with the robust SEs. Before computing the robust SEs, my SEs were 9.549534, 0.452875, 0.085438, and 0.001186 for the intercept, Income_c, Rating_c, and Income_c:Rating_c respectively. After computing the robust SEs, my SEs were 9.6332553, 0.4765486, 0.0825803, 0.0010869 for the intercept, Income_c, Rating_c, and Income_c:Rating_c respectively. The SEs increased for the intercept and Income_c after computing the robust SEs but decreased for Rating_c and Income_c:Rating_c. The proportion of variation in the outcome my model explains is 0.8777 (multiple r-squared value).</p>
-<ul>
-<li><strong>4. (5 pts)</strong> Rerun same regression model (with interaction), but this time compute bootstrapped standard errors. Discuss any changes you observe in SEs and p-values using these SEs compared to the original SEs and the robust SEs)</li>
-</ul>
+</div>
+<div id="linear-regression-model-with-bootstrapped-ses" class="section level3">
+<h3>Linear Regression Model with Bootstrapped SEs</h3>
 <pre class="r"><code># Bootstrapped SEs (resampling rows)
 samp_distn&lt;-replicate(5000, {
 boot_dat&lt;-boot_dat&lt;-credit[sample(nrow(credit),replace=TRUE),]
@@ -251,9 +242,9 @@ coeftest(p3fit)[,1:2] # Normal-theory SEs</code></pre>
 ## 1    9.544074 0.4547719 0.08453428       0.001180613</code></pre>
 <p>The Bootstrapped SEs from resampling rows for Intercept, Income_c, Rating_c, and Income_c:Rating_c were 9.5378, 0.4787259, 0.08331522, and 0.0010756 respectively. The Bootstrapped SEs from resampling residuals for Intercept, Income_c, Rating_c, and Income_c:Rating_c were 9.546869, 0.4545284, 0.08450937, and 0.001180758 respectively. The original SEs for Intercept, Income_c, Rating_c, and Income_c:Rating_c were 9.549534, 0.452875, 0.085438, and 0.001186 with p-values of &lt; 0.0000000000000002, &lt; 0.0000000000000002, &lt; 0.0000000000000002, and 0.00442 respectively. The robust SEs for Intercept, Income_c, Rating_c, and Income_c:Rating_c were 9.6332553, 0.4765486, 0.0825803, and 0.0010869 with p-values of &lt; 0.00000000000000022, &lt; 0.00000000000000022, &lt; 0.00000000000000022, and 0.001922 respectively.</p>
 <p>When looking at SEs: The SEs are all around the same value for each respective variable, give or take a very small increase or decrease in value between the different types of SEs. When looking at p-values: The p-values for Intercept, Income_c, and Rating_c were the same for both robust SEs and the original SEs. However, the p-value for the interaction of Income_c:Rating_c decreased from 0.00442 to 0.001922 for the robust SEs.</p>
-<ul>
-<li><strong>5. (40 pts)</strong> Perform a logistic regression predicting a binary categorical variable (if you don’t have one, make/get one) from at least two explanatory variables (interaction not necessary).</li>
-</ul>
+</div>
+<div id="logistic-regression" class="section level3">
+<h3>Logistic Regression</h3>
 <pre class="r"><code>library(tidyverse)
 library(lmtest)
 
@@ -352,9 +343,9 @@ summarize_all(diagp,mean)  </code></pre>
 <pre><code>##     acc sens      spec ppv       auc
 ## 1 0.895    0 0.9946657 NaN 0.7192716</code></pre>
 <p>I ran a logistic regression to model the probability of (being a) Student based on the explanatory variables of Balance and Cards. For the intercept: odds of (being a) Student when Balance= 0 and Cards=0, is 0.04846555. For Balance: Controlling for Cards, for every one unit increase in Balance, odds of (being a) Student increase by a factor of 1.00182360 (significant). For Cards: Controlling for Balance, for every one unit increase in Cards, odds of (being a) Student increase by a factor 0.87251775 (not significant). After running a confusion matrix, I got the following: accuracy= 0.8975 (proportion of correctly classified cases), sensitivity= 0 (proprotion of students correctly classified), specificity= 0.9972 (proportion of those that are not students correctly classified), ppv= 0 (proportion classified as a student who actually are). From the ROC curve generated, I calculated the AUC to be 0.7349653. The AUC is the probability that a randomly selected person that is a student has a higher predicted probability than a randomly selected person that is not a student. This AUC value is fair. I then performed a 10-fold CV and got the following out-of-sample Accuracy, Sensitivity, Recall, and AUC respectively: 0.895, 0, NaN, and 0.7192716.</p>
-<ul>
-<li><strong>6. (10 pts)</strong> Choose one variable you want to predict (can be one you used from before; either binary or continuous) and run a LASSO regression inputting all the rest of your variables as predictors. Choose lambda to give the simplest model whose accuracy is near that of the best (i.e., <code>lambda.1se</code>). Discuss which variables are retained. Perform 10-fold CV using this model: if response in binary, compare model’s out-of-sample accuracy to that of your logistic regression in part 5; if response is numeric, compare the residual standard error (at the bottom of the summary output, aka RMSE): lower is better fit!</li>
-</ul>
+</div>
+<div id="lasso" class="section level3">
+<h3>LASSO</h3>
 <pre class="r"><code>library(dplyr)
 ncredit &lt;- credit %&gt;% dplyr::select(-Rating_c, -Income_c, -logit)
 # 10-fold CV with linear regression

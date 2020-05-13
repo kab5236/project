@@ -6,10 +6,28 @@
     <description>Recent content on Portfolio</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Sun, 02 Oct 2016 22:55:05 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Project 1: Exploratory Data Analysis</title>
+      <link>/project1/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/project1/</guid>
+      <description>Introduction library(tidyverse) voterturnout &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-10-09/voter_turnout.csv&amp;quot;) catdog &amp;lt;- read.csv(&amp;quot;https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-11/cats_vs_dogs.csv&amp;quot;) I chose two datasets for my project: one that I named as “voterturnout” and another I named as “catdog”. The voterturnout dataset contains information regarding the number of votes and eligible voters for all 50 states for every 2 years from 1980-2014. The specific variables in the dataset include: X, year, icpsr_state_code, alphanumeric_state_code, state, votes, and eligible_voters. The catdog dataset gives various data about cat and dog households/owners across all 50 states.</description>
+    </item>
+    
+    <item>
+      <title>Project 2: Modeling, Testing, and Predicting</title>
+      <link>/kproject2/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/kproject2/</guid>
+      <description>Introduction credit &amp;lt;- read.csv(&amp;quot;https://vincentarelbundock.github.io/Rdatasets/csv/ISLR/Credit.csv&amp;quot;) head(credit) ## X ID Income Limit Rating Cards Age Education Gender Student Married Ethnicity Balance ## 1 1 1 14.891 3606 283 2 34 11 Male No Yes Caucasian 333 ## 2 2 2 106.025 6645 483 3 82 15 Female Yes Yes Asian 903 ## 3 3 3 104.593 7075 514 4 71 11 Male No No Asian 580 ## 4 4 4 148.924 9504 681 3 36 11 Female No No Asian 964 ## 5 5 5 55.</description>
+    </item>
     
     <item>
       <title>Rstudio and Python</title>
@@ -17,15 +35,6 @@
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
       
       <guid>/blog/sample-blog/</guid>
-      <description>Which one is the best language for data science? It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. The reality is that R and Python can actually do a lot of the same things but just use a different code to get there.</description>
-    </item>
-    
-    <item>
-      <title>Rstudio and Python</title>
-      <link>/blog/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Tue, 12 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/2015-07-23-r-rmarkdown/</guid>
       <description>Which one is the best language for data science? It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. The reality is that R and Python can actually do a lot of the same things but just use a different code to get there.</description>
     </item>
     
@@ -39,27 +48,6 @@
   Exploratory Data Analysis with Tidyverse Tools
   Modeling, Testing, and Classification
   </description>
-    </item>
-    
-    <item>
-      <title>Project 1: Exploratory Data Analysis</title>
-      <link>/project1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/project1/</guid>
-      <description>Kiana Banafshay (kab5236)
-R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-When you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</description>
-    </item>
-    
-    <item>
-      <title>Project 2: Modeling, Testing, and Predicting</title>
-      <link>/kproject2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/kproject2/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-When you click the Knit button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</description>
     </item>
     
   </channel>

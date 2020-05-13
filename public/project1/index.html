@@ -61,7 +61,7 @@
         </div>
         <div class="blog-title">
           <h4>
-          January 1, 0001
+          May 13, 2020
             &nbsp;&nbsp;
             
           </h4>
@@ -72,11 +72,6 @@
               
 
 
-<p>Kiana Banafshay (kab5236)</p>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
 <div id="introduction" class="section level4">
 <h4>Introduction</h4>
 <pre class="r"><code>library(tidyverse)
@@ -408,7 +403,6 @@ kmeansclust</code></pre>
 <pre class="r"><code>kmeansclust %&gt;% ggplot(aes(n_pet_households,votes,color=cluster)) + geom_point()</code></pre>
 <p><img src="../project1_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /> I performed a k-means cluster analysis and then used ggplot to visualize the 2 clusters. The 2 clusters created are of sizes 9 and 37. Essentially the graph shows the two variables (votes and number of pet households), but in clusters based on four variables (votes, number of pet households, number of dog households, and number of cat households). In general, I see a trend that as number of pet households increase so do the number of votes. It can also be seen that cluster 1 (red dots) generally has a higher number of pet households and a higher number of votes than cluster 2 (blue dots). The centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 1 are 1.5562925, 1.5498753, 1.5542284, and 1.5850703 respectively. On the other hand, the centers for n_pet_households, n_cat_households, n_dog_households, and votes for cluster 2 are -0.3785576, -0.3769967, -0.3780556, and -0.3855576.</p>
 <p>```</p>
-</div>
 </div>
 
               <hr>

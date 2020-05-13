@@ -20,14 +20,5 @@
       <description>Which one is the best language for data science? It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. The reality is that R and Python can actually do a lot of the same things but just use a different code to get there.</description>
     </item>
     
-    <item>
-      <title>Rstudio and Python</title>
-      <link>/blog/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Tue, 12 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/2015-07-23-r-rmarkdown/</guid>
-      <description>Which one is the best language for data science? It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. The reality is that R and Python can actually do a lot of the same things but just use a different code to get there.</description>
-    </item>
-    
   </channel>
 </rss>
