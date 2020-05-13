@@ -17,7 +17,7 @@ It seems like there is this great big divide between R users and Python users, w
 ![](/blog/2015-07-23-r-rmarkdown_files/Rvspython.jpg)
 
 
-The reality is that R and Python can actually do a lot of the same things but just use a different code to get there. While there are certainly many pros and cons of each, R and Python respectively have their own unique individual strengths. Therefore, it ultimately comes down to your own personal preference and your project at hand. But the way I see it, why limit yourself to just one language when you can use the individual strengths of both together? The great thing is, you can actually can! You might be wondering how that is even possible? Let me show you:
+The reality is that R and Python can actually do a lot of the same things but just use a different code to get there. While there are certainly many pros and cons of each, R and Python respectively have their own unique individual strengths. Therefore, it ultimately comes down to your own personal preference and your project at hand. But the way I see it, why limit yourself to just one language when you can use the individual strengths of both together? The great thing is, you actually can! You might be wondering how that is even possible? Let me show you:
 
 
 ```{R}
