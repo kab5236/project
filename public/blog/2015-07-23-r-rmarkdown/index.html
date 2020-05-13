@@ -70,6 +70,8 @@
             
             <span class="label label-success">rstudio</span>
             
+            <span class="label label-success">reticulate</span>
+            
           </h4>
         </div>
         <div class="panel panel-default">
@@ -80,14 +82,21 @@
 
 <div id="which-one-is-the-best-language-for-data-science" class="section level1">
 <h1>Which one is the best language for data science?</h1>
-<p>While there are many pros and cons of each, it ultimately comes down to your own personal preference. For instance, there are many things that Rstudio can do that Python can’t and vice versa. On the flip side, Rstudio and Python can do a lot of the same things but they just use different code to get there. If I haven’t confused you enough, something that I actually found to be really neat is that you can actually use both at the same time! You might ask how is that even possible?! Let me show you:</p>
-<pre class="r"><code>library(reticulate)
-show &lt;- &quot;Cheers to&quot;</code></pre>
-<pre class="python"><code>show = &quot;Class of 2020&quot;
+<p>It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. <img src="../../blog/2015-07-23-r-rmarkdown_files/Rvspython.jpg" /></p>
+<p>The reality is that R and Python can actually do a lot of the same things but just use a different code to get there. While there are certainly many pros and cons of each, R and Python respectively have their own unique individual strengths. Therefore, it ultimately comes down to your own personal preference and your project at hand. But the way I see it, why limit yourself to just one language when you can use the individual strengths of both together? The great thing is, you can actually can! You might be wondering how that is even possible? Let me show you:</p>
+<pre class="r"><code># R code chunk
+library(reticulate)
+show &lt;- &quot;Cheers to the&quot;</code></pre>
+<pre class="python"><code># Python code chunk
+show = &quot;Class of 2020&quot;
 print(r.show, show)
-## Cheers to Class of 2020</code></pre>
-<p>By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned “Cheers to” to “show”. Using the Python code chunk, I also assigned “Class of 2020” to “show”. Then I printed both “show” together to get “Cheers to class of 2020”. It is important to note that when I went to go print the code chunk, I put an “r.” in front of “show” in order to access the R-defined object since I’m in the Python code chunk. If I was in the R code chunk, I would put “py$” in front of “show” instead.</p>
-<p>Here is a fun celebratory cake I baked for graduating (and my birthday): <img src="../../blog/2015-07-23-r-rmarkdown_files/CakeKiana.jpg" /></p>
+## Cheers to the Class of 2020</code></pre>
+<p>By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned “Cheers to the” to “show”. Using the Python code chunk, I also assigned “Class of 2020” to “show”. Then I printed both “show” together to get “Cheers to the class of 2020”. It is important to note that when I went to go print the code chunk, I put an “r.” in front of “show” in order to access the R-defined object since I’m in the Python code chunk. If I was in the R code chunk, I would put “py$” in front of “show” instead. This is how you would do that:</p>
+<pre class="r"><code># R code chunk
+cat(c(show, py$show))
+## Cheers to the Class of 2020</code></pre>
+<p>As you can see, you get the same output of “Cheers to the Class of 2020”. By using the reticulate package, you no longer have to pick a side of R or Python. As Hannah Montana said, you get the best of both worlds!</p>
+<p>And in honor of the Class of 2020, here is a fun celebratory cake I baked: <img src="../../blog/2015-07-23-r-rmarkdown_files/CakeKiana.jpg" /></p>
 </div>
 
               <hr>
