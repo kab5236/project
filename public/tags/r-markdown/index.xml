@@ -6,10 +6,19 @@
     <description>Recent content in R Markdown on Portfolio</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 12 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rstudio and Python</title>
+      <link>/blog/sample-blog/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/sample-blog/</guid>
+      <description>Which one is the best language for data science? It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. The reality is that R and Python can actually do a lot of the same things but just use a different code to get there.</description>
+    </item>
     
     <item>
       <title>Rstudio and Python</title>
