@@ -7,7 +7,7 @@
     <meta name="author" content="Kiana Banafshay" />
     <meta name="description" content="Describe your website">
     <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
-    <title>Rstudio and Python</title>
+    <title>Python is Cool</title>
     <meta name="generator" content="Hugo 0.70.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
@@ -56,21 +56,17 @@
       <div class="container">
         <div class="blog-post">
           <h3>
-            <strong><a href="../../blog/sample-blog/">Rstudio and Python</a></strong>
+            <strong><a href="../../blog/more-blog/">Python is Cool</a></strong>
           </h3>
         </div>
         <div class="blog-title">
           <h4>
-          May 13, 2020
+          May 14, 2020
             &nbsp;&nbsp;
             
             <span class="label label-success">R Markdown</span>
             
             <span class="label label-success">python</span>
-            
-            <span class="label label-success">rstudio</span>
-            
-            <span class="label label-success">reticulate</span>
             
           </h4>
         </div>
@@ -80,23 +76,54 @@
               
 
 
-<div id="which-one-is-the-best-language-for-data-science" class="section level1">
-<h1>Which one is the best language for data science?</h1>
-<p>It seems like there is this great big divide between R users and Python users, with individuals on each side believing that their choice of language is the superior one. Even a quick Google search shows millions of results comparing the two. <img src="../../blog/2020-05-13-sample-blog_files/Rvspython.jpg" /></p>
-<p>The reality is that R and Python can actually do a lot of the same things but just use a different code to get there. While there are certainly many pros and cons of each, R and Python respectively have their own unique individual strengths. Therefore, it ultimately comes down to your own personal preference and your project at hand. But the way I see it, why limit yourself to just one language when you can use the individual strengths of both together? The great thing is, you actually can! You might be wondering how that is even possible? Let me show you:</p>
-<pre class="r"><code># R code chunk
-library(reticulate)
-show &lt;- &quot;Cheers to the&quot;</code></pre>
-<pre class="python"><code># Python code chunk
-show = &quot;Class of 2020&quot;
-print(r.show, show)</code></pre>
-<pre><code>## Cheers to the Class of 2020</code></pre>
-<p>By using the reticulate package, I was able to use both R and Python interchangeably. Using the R code chunk, I assigned “Cheers to the” to “show”. Using the Python code chunk, I also assigned “Class of 2020” to “show”. Then I printed both “show” together to get “Cheers to the class of 2020”. It is important to note that when I went to go print the code chunk, I put an “r.” in front of “show” in order to access the R-defined object since I’m in the Python code chunk. If I was in the R code chunk, I would put “py$” in front of “show” instead. This is how you would do that:</p>
-<pre class="r"><code># R code chunk
-cat(c(show, py$show))</code></pre>
-<pre><code>## Cheers to the Class of 2020</code></pre>
-<p>As you can see, you get the same output of “Cheers to the Class of 2020”. By using the reticulate package, you no longer have to pick a side of R or Python. As Hannah Montana said, you get the best of both worlds!</p>
-<p>And in honor of the Class of 2020, here is a fun celebratory cake I baked: <img src="../../blog/2020-05-13-sample-blog_files/CakeKiana.jpg" /></p>
+<p><img src="../../blog/2020-05-14-more-blog_files/python2.jpg" /> Yes yes these pythons are cool but let’s look at what else you can do with the Python programming language…</p>
+<div id="functions-in-python" class="section level1">
+<h1>Functions in Python</h1>
+<pre class="python"><code>def count_chars(sentence): 
+    counts = {}
+    for c in sentence:
+      if c in counts:
+          counts[c]+=1 
+      else:
+          counts[c]=1
+    for c in counts:
+        print(c, &quot;appears&quot;, counts[c],&quot;times&quot;)
+        
+new_sentence = &quot;I&#39;m bored in the house and I&#39;m in the house bored.&quot;
+count_chars(new_sentence)</code></pre>
+<pre><code>## I appears 2 times
+## &#39; appears 2 times
+## m appears 2 times
+##   appears 10 times
+## b appears 2 times
+## o appears 4 times
+## r appears 2 times
+## e appears 6 times
+## d appears 3 times
+## i appears 2 times
+## n appears 3 times
+## t appears 2 times
+## h appears 4 times
+## u appears 2 times
+## s appears 2 times
+## a appears 1 times
+## . appears 1 times</code></pre>
+<p>You can define functions in Python to do anything you’d like! I first created a function called “count_chars” that counts up the characters in a string. Once the function is defined, I can then apply it to any sentence I want. In my example, I tried it with the sentence “I’m bored in the house and I’m in the house bored”. As you can see from the output, this function will individually count all the characters in my sentence. The count_chars() function can further be used to count the characters word by word.</p>
+</div>
+<div id="lists-in-python" class="section level1">
+<h1>Lists in Python</h1>
+<pre class="python"><code>x = [&#39;oatmeal&#39;, &#39;8&#39;,&#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;, &#39;22&#39;]
+x.append(&#39;!&#39;)
+x</code></pre>
+<pre><code>## [&#39;oatmeal&#39;, &#39;8&#39;, &#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;, &#39;22&#39;, &#39;!&#39;]</code></pre>
+<pre class="python"><code>x[1]</code></pre>
+<pre><code>## &#39;8&#39;</code></pre>
+<pre class="python"><code>x[2:5]</code></pre>
+<pre><code>## [&#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;]</code></pre>
+<pre class="python"><code>x.reverse()
+x</code></pre>
+<pre><code>## [&#39;!&#39;, &#39;22&#39;, &#39;cake&#39;, &#39;run&#39;, &#39;cat&#39;, &#39;8&#39;, &#39;oatmeal&#39;]</code></pre>
+<p>Lists are also really neat in Python! To demonstrate some things you can do with lists, I first made a list consisting of 6 different elements. Then by using .append(), I was able to add another element (!) to the end of my list. You can also index with lists but unlike in R, Python indexing starts at 0 instead of 1. For instance, when I put 1 in brackets, it is actually pulling the second element in the list. Doing 2:5 will index from 2 up to but not including 5. In other words, it is going from the third element of the list up to the fifth element of the list. You can also reverse the list using .reverse().</p>
 </div>
 
               <hr>
@@ -106,12 +133,12 @@ cat(c(show, py$show))</code></pre>
                   <div class="row">
                     <div class="col-sm-4 col-md-4 col-lg-4">
                       <h6 style="text-align: right">
-                        May 14, 2020
+                        May 13, 2020
                       </h6>
                     </div>
                     <div class="col-sm-8 col-md-8 col-lg-8">
                       <h6 style="text-align: left">
-                        <strong><a href="../../blog/more-blog/">Python is Cool</a></strong>
+                        <strong><a href="../../blog/sample-blog/">Rstudio and Python</a></strong>
                       </h6>
                     </div>
                   </div>

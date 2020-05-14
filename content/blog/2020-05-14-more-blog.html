@@ -1,0 +1,61 @@
+---
+title: "Python is Cool"
+author: ''
+date: '2020-05-14'
+slug: more-blog
+categories: ["R"]
+tags: ["R Markdown", "python"]
+description: ''
+---
+
+
+
+<p><img src="/blog/2020-05-14-more-blog_files/python2.jpg" /> Yes yes these pythons are cool but let’s look at what else you can do with the Python programming language…</p>
+<div id="functions-in-python" class="section level1">
+<h1>Functions in Python</h1>
+<pre class="python"><code>def count_chars(sentence): 
+    counts = {}
+    for c in sentence:
+      if c in counts:
+          counts[c]+=1 
+      else:
+          counts[c]=1
+    for c in counts:
+        print(c, &quot;appears&quot;, counts[c],&quot;times&quot;)
+        
+new_sentence = &quot;I&#39;m bored in the house and I&#39;m in the house bored.&quot;
+count_chars(new_sentence)</code></pre>
+<pre><code>## I appears 2 times
+## &#39; appears 2 times
+## m appears 2 times
+##   appears 10 times
+## b appears 2 times
+## o appears 4 times
+## r appears 2 times
+## e appears 6 times
+## d appears 3 times
+## i appears 2 times
+## n appears 3 times
+## t appears 2 times
+## h appears 4 times
+## u appears 2 times
+## s appears 2 times
+## a appears 1 times
+## . appears 1 times</code></pre>
+<p>You can define functions in Python to do anything you’d like! I first created a function called “count_chars” that counts up the characters in a string. Once the function is defined, I can then apply it to any sentence I want. In my example, I tried it with the sentence “I’m bored in the house and I’m in the house bored”. As you can see from the output, this function will individually count all the characters in my sentence. The count_chars() function can further be used to count the characters word by word.</p>
+</div>
+<div id="lists-in-python" class="section level1">
+<h1>Lists in Python</h1>
+<pre class="python"><code>x = [&#39;oatmeal&#39;, &#39;8&#39;,&#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;, &#39;22&#39;]
+x.append(&#39;!&#39;)
+x</code></pre>
+<pre><code>## [&#39;oatmeal&#39;, &#39;8&#39;, &#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;, &#39;22&#39;, &#39;!&#39;]</code></pre>
+<pre class="python"><code>x[1]</code></pre>
+<pre><code>## &#39;8&#39;</code></pre>
+<pre class="python"><code>x[2:5]</code></pre>
+<pre><code>## [&#39;cat&#39;, &#39;run&#39;, &#39;cake&#39;]</code></pre>
+<pre class="python"><code>x.reverse()
+x</code></pre>
+<pre><code>## [&#39;!&#39;, &#39;22&#39;, &#39;cake&#39;, &#39;run&#39;, &#39;cat&#39;, &#39;8&#39;, &#39;oatmeal&#39;]</code></pre>
+<p>Lists are also really neat in Python! To demonstrate some things you can do with lists, I first made a list consisting of 6 different elements. Then by using .append(), I was able to add another element (!) to the end of my list. You can also index with lists but unlike in R, Python indexing starts at 0 instead of 1. For instance, when I put 1 in brackets, it is actually pulling the second element in the list. Doing 2:5 will index from 2 up to but not including 5. In other words, it is going from the third element of the list up to the fifth element of the list. You can also reverse the list using .reverse().</p>
+</div>

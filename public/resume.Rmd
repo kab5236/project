@@ -1,0 +1,8 @@
+---
+title: "Resume"
+output: html_document
+---
+
+Please find my professional resume below
+
+<a href="/resume.docx" target="_blank">resume</a>

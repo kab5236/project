@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Python is Cool</title>
+      <link>/blog/more-blog/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/more-blog/</guid>
+      <description>Yes yes these pythons are cool but let’s look at what else you can do with the Python programming language…
+Functions in Python def count_chars(sentence): counts = {} for c in sentence: if c in counts: counts[c]+=1 else: counts[c]=1 for c in counts: print(c, &amp;quot;appears&amp;quot;, counts[c],&amp;quot;times&amp;quot;) new_sentence = &amp;quot;I&amp;#39;m bored in the house and I&amp;#39;m in the house bored.&amp;quot; count_chars(new_sentence) ## I appears 2 times ## &amp;#39; appears 2 times ## m appears 2 times ## appears 10 times ## b appears 2 times ## o appears 4 times ## r appears 2 times ## e appears 6 times ## d appears 3 times ## i appears 2 times ## n appears 3 times ## t appears 2 times ## h appears 4 times ## u appears 2 times ## s appears 2 times ## a appears 1 times ## .</description>
+    </item>
+    
+    <item>
       <title>Project 1: Exploratory Data Analysis</title>
       <link>/project1/</link>
       <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>

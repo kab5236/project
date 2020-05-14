@@ -1,0 +1,48 @@
+---
+title: "Python is Cool"
+author: ''
+date: '2020-05-14'
+slug: more-blog
+categories: ["R"]
+tags: ["R Markdown", "python"]
+description: ''
+---
+
+![](/blog/2020-05-14-more-blog_files/python2.jpg)
+Yes yes these pythons are cool but let's look at what else you can do with the Python programming language...
+
+#Functions in Python
+
+```{python}
+def count_chars(sentence): 
+    counts = {}
+    for c in sentence:
+      if c in counts:
+          counts[c]+=1 
+      else:
+          counts[c]=1
+    for c in counts:
+        print(c, "appears", counts[c],"times")
+        
+new_sentence = "I'm bored in the house and I'm in the house bored."
+count_chars(new_sentence)
+```
+
+You can define functions in Python to do anything you'd like! I first created a function called "count_chars" that counts up the characters in a string. Once the function is defined, I can then apply it to any sentence I want. In my example, I tried it with the sentence "I'm bored in the house and I'm in the house bored". As you can see from the output, this function will individually count all the characters in my sentence. The count_chars() function can further be used to count the characters word by word.
+
+# Lists in Python
+```{python}
+x = ['oatmeal', '8','cat', 'run', 'cake', '22']
+x.append('!')
+x
+x[1]
+x[2:5]
+x.reverse()
+x
+```
+
+Lists are also really neat in Python! To demonstrate some things you can do with lists, I first made a list consisting of 6 different elements. Then by using .append(), I was able to add another element (!) to the end of my list. You can also index with lists but unlike in R, Python indexing starts at 0 instead of 1. For instance, when I put 1 in brackets, it is actually pulling the second element in the list. Doing 2:5 will index from 2 up to but not including 5. In other words, it is going from the third element of the list up to the fifth element of the list. You can also reverse the list using .reverse().
+
+
+
+
